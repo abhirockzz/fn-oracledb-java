@@ -10,9 +10,7 @@
 
 - `fn start`
 
-From a different terminal
-
-if you want to test locally ignore the next two steps
+Configure Docker
 
 - `docker login` (use your docker registry credentials)
 - `export FN_REGISTRY=<name of your docker repository>`
@@ -22,15 +20,14 @@ if you want to test locally ignore the next two steps
 Moving on....
 
 - `cd fn-oracledb-java`
-- `fn -v deploy --all --local` (`-v` will activate verbose mode)
+- `fn -v deploy --all` (`-v` will activate verbose mode)
 
-> `--local` will build & push docker images locally (and run it from there). Remove it if you want use a dedicated/external Docker registry
+> adding `--local` to `fn deploy` will build & push docker images locally (and run it from there). Remove it if you want use a dedicated/external Docker registry
 
-All your functions (create, read, update, delete) should now be deployed. Check it using `fn inspect app fn-oradb-java-app` and `fn list routes --app fn-oradb-java-app`
+All your functions (create, read, update, delete) should now be deployed. Check it using `fn inspect app fn-oradb-java-app` and `fn list routes fn-oradb-java-app`
 
 ## Behind the scenes
 
-> work in progress
 
 ### Build and runtime Docker images
 
@@ -41,6 +38,8 @@ A custom `build_image` (see `func.yaml`) has been used - this Docker image pre-p
 DB connection is not closed at end of every function invocation - this is to leverage hot functions. If the function is called before the `idle_timeout` (default is 30 seconds and can be configured via `func.yaml`), the call will be routed to a hot function (already used) DB connection will not be repeated again 
 
 ### app.yaml
+
+Bare minimum config file which defines the name of the app i.e. `fn-oradb-java-app`
 
 ## Test
 
