@@ -28,7 +28,6 @@ All your functions (create, read, update, delete) should now be deployed. Check 
 
 ## Behind the scenes
 
-
 ### Build and runtime Docker images
 
 A custom `build_image` (see `func.yaml`) has been used - this Docker image pre-packages the Oracle JDBC driver (`ocjbc7.jar`). You can build you own image (most probably you will)
@@ -43,15 +42,11 @@ Bare minimum config file which defines the name of the app i.e. `fn-oradb-java-a
 
 ## Test
 
-you can test in two ways
-
-- Fn CLI using `fn call`
-- `curl` the endpoint of your functions as per `fn list routes fn-oradb-java-app`
-
+.. with Fn CLI using `fn call`
 
 ### Create
 
-`echo '{"emp_email": "a@b.com","emp_name": "abhishek","emp_dept": "Product Divison"}' | fn call fn-oradb-java-app /create`
+`echo -n '{"emp_email": "a@b.com","emp_name": "abhishek","emp_dept": "Product Divison"}' | fn call fn-oradb-java-app /create`
 
 Create as many as you want
 
@@ -64,7 +59,7 @@ Create as many as you want
 
 It is possible to update the department of an employee
 
-`echo -d '{"emp_email": "a@b.com", "emp_dept": "Support Operations"}' | fn call fn-oradb-java-app /update`
+`echo -n '{"emp_email": "a@b.com", "emp_dept": "Support Operations"}' | fn call fn-oradb-java-app /update`
 
 > check to make sure - `echo a@b.com | fn call fn-oradb-java-app /read`
 
@@ -72,6 +67,6 @@ It is possible to update the department of an employee
 
 Use employee email to specify which employee record you want to delete
 
-`echo a@b.com | fn call fn-oradb-java-app /delete`
+`echo -n a@b.com | fn call fn-oradb-java-app /delete`
 
 > check to make sure - `echo a@b.com | fn call fn-oradb-java-app /read`
