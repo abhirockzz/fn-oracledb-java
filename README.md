@@ -1,12 +1,11 @@
 # Fn with Oracle DB
 
-## step 0
+## Set up
 
 - `git clone https://github.com/abhirockzz/fn-oracledb-java`
-- run `seed-db.sql` to create the table in your DB
 - replace `config` section `func.yaml` with DB connectivity details for your specific environment
 
-## step 1
+## Start...
 
 - `fn start`
 
@@ -25,20 +24,6 @@ Moving on....
 > adding `--local` to `fn deploy` will build & push docker images locally (and run it from there). Remove it if you want use a dedicated/external Docker registry
 
 All your functions (create, read, update, delete) should now be deployed. Check it using `fn inspect app fn-oradb-java-app` and `fn list routes fn-oradb-java-app`
-
-## Behind the scenes
-
-### Build and runtime Docker images
-
-A custom `build_image` (see `func.yaml`) has been used - this Docker image pre-packages the Oracle JDBC driver (`ocjbc7.jar`). You can build you own image (most probably you will)
-
-### Hot functions and DB connection
-
-DB connection is not closed at end of every function invocation - this is to leverage hot functions. If the function is called before the `idle_timeout` (default is 30 seconds and can be configured via `func.yaml`), the call will be routed to a hot function (already used) DB connection will not be repeated again 
-
-### app.yaml
-
-Bare minimum config file which defines the name of the app i.e. `fn-oradb-java-app`
 
 ## Test
 
