@@ -7,7 +7,7 @@ Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple
 - You have an Oracle DB instance e.g. [Oracle DBMS on Oracle Cloud Infrastructure](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/databaseoverview.htm?tocpath=Services%7CDatabase%7C_____0)
 - You have seeded the `EMPLOYEES` table in your DB schema (check [seed-db.sql](seed-db.sql))
 
-## Start Fn
+## Setup
 
 - Start local Fn server - `fn start`
 - Switch context - `fn use context default`
