@@ -54,12 +54,43 @@ Run `fn inspect app fn-oradb-java-app` to check your app
 
 `echo -n '{"emp_email": "a@b.com","emp_name": "abhishek","emp_dept": "Product Divison"}' | fn call fn-oradb-java-app /create`
 
-Create as many as you want
+If successful, you should a response similar to this `Created employee CreateEmployeeInfo{emp_email=a@b.com, emp_name=abhishek, emp_dept=Product Divison}`
+
+Create as many as you want - make sure that the `emp_email` is unique
 
 ### Read
 
 - `fn call fn-oradb-java-app /read` (to fetch all employees)
-- `echo a@b.com | fn call fn-oradb-java-app /read` (to fetch employee with email `a@b.com`)
+
+You should get back a JSON response similar to below
+
+	[
+	  {
+	    "emp_email": "y@z.com",
+	    "emp_name": "abhishek",
+	    "emp_dept": "PM"
+	  },
+	  {
+	    "emp_email": "a@b.com",
+	    "emp_name": "abhishek",
+	    "emp_dept": "Product Divison"
+	  },
+	  {
+	    "emp_email": "x@y.com",
+	    "emp_name": "kehsihba",
+	    "emp_dept": "QA Divison"
+	  }
+	]
+
+- `echo -n 'a@b.com' | fn call fn-oradb-java-app /read` (to fetch employee with email `a@b.com`)
+
+		[
+		  {
+		    "emp_email": "a@b.com",
+		    "emp_name": "abhishek",
+		    "emp_dept": "Product Divison"
+		  }
+		]
 
 ### Update
 
@@ -67,12 +98,22 @@ It is possible to update the department of an employee
 
 `echo -n '{"emp_email": "a@b.com", "emp_dept": "Support Operations"}' | fn call fn-oradb-java-app /update`
 
-> check to make sure - `echo a@b.com | fn call fn-oradb-java-app /read`
+Successful invocation will return back a message similar to `Updated employee UpdateEmployeeInfo{emp_email=a@b.com, emp_dept=Support Operations}`
+
+Check to make sure - `echo -n 'a@b.com' | fn call fn-oradb-java-app /read` - the updated department should reflect
+
+		[
+		  {
+		    "emp_email": "a@b.com",
+		    "emp_name": "abhishek",
+		    "emp_dept": "Support Operations"
+		  }
+		]
 
 ### Delete
 
 Use employee email to specify which employee record you want to delete
 
-`echo -n a@b.com | fn call fn-oradb-java-app /delete`
+`echo -n 'a@b.com' | fn call fn-oradb-java-app /delete` and you should see `Deleted employee a@b.com` message
 
-> check to make sure - `echo a@b.com | fn call fn-oradb-java-app /read`
+Check to make sure - `echo -n 'a@b.com' | fn call fn-oradb-java-app /read`
