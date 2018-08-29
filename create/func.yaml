@@ -6,7 +6,3 @@ build_image: abhirockzz/mvn_ora_driver
 run_image: fnproject/fn-java-fdk:jdk9-1.0.63
 format: http
 path: /create
-config:
-  DB_PASSWORD: <password>
-  DB_URL: <url in format jdbc:oracle:thin:@//host:port/service_name >
-  DB_USER: <username - add `as sysdba` if needed> 

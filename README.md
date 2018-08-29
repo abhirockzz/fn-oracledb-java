@@ -1,29 +1,41 @@
 # Fn with Oracle DB
 
-## Set up
+## Start Fn
 
-- `git clone https://github.com/abhirockzz/fn-oracledb-java`
-- replace `config` section `func.yaml` with DB connectivity details for your specific environment
+- Start local Fn server - `fn start`
+- Switch context - `fn use context default`
 
-## Start...
+### Configure Docker
 
-- `fn start`
-
-Configure Docker
+> This is not needed if you just want to use don't want to push images to external Docker registry
 
 - `docker login` (use your docker registry credentials)
 - `export FN_REGISTRY=<name of your docker repository>`
 
-> your function docker image name will end up being - `<docker repo name>/<function name in func.yaml>:<version in func.yaml>`
 
-Moving on....
+### Create an app with required database configuration
 
-- `cd fn-oracledb-java`
-- `fn -v deploy --all` (`-v` will activate verbose mode)
+`fn create app --config DB_URL=<url in format jdbc:oracle:thin:@//host:port/service_name> --config DB_USER=<db username> --config DB_PASSWORD=<password> fn-oradb-java-app` e.g. `fn create app --config DB_URL=jdbc:oracle:thin:@//129.220.150.190:1521/test_iad1vc.sub07250801030.faasvcn.oraclevcn.com --config DB_USER=workshop-134 --config DB_PASSWORD=tOps3cr3t fn-oradb-java-app`
+
+## Deploy
+
+Clone this repo - `git clone https://github.com/abhirockzz/fn-oracledb-java`
+
+Deploy one function at a time. For example, to deploy the `create` function
+
+- `cd fn-oracledb-java/create`
+- `fn -v deploy --app fn-oradb-java-app --local --no-bump` (`-v` will activate verbose mode)
 
 > adding `--local` to `fn deploy` will build & push docker images locally (and run it from there). Remove it if you want use a dedicated/external Docker registry
 
-All your functions (create, read, update, delete) should now be deployed. Check it using `fn inspect app fn-oradb-java-app` and `fn list routes fn-oradb-java-app`
+For `read` function deployment
+
+- `cd fn-oracledb-java/read`
+- `fn -v deploy --app fn-oradb-java-app --local --no-bump`
+
+> Repeat for other functions i.e. `delete` and `update`
+
+Run `fn inspect app fn-oradb-java-app` to check your app
 
 ## Test
 

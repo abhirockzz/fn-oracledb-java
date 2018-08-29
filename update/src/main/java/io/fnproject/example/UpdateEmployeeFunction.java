@@ -54,7 +54,9 @@ public class UpdateEmployeeFunction {
             updated = st.executeUpdate();
 
             System.err.println(updated + " rows updated");
-            status = "Updated employee " + empInfo;
+            if (updated > 0) {
+                status = "Updated employee " + empInfo;
+            }
 
         } catch (Exception se) {
             System.err.println("Unable to update data in DB due to - " + se.getMessage());
