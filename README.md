@@ -1,5 +1,12 @@
 # Fn with Oracle DB
 
+Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple `Employee` entity for demonstration purposes 
+
+## Pre-requisites
+
+- You have an Oracle DB instance e.g. [Oracle DBMS on Oracle Cloud Infrastructure](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/databaseoverview.htm?tocpath=Services%7CDatabase%7C_____0)
+- You have seeded the `EMPLOYEES` table in your DB schema (check [seed-db.sql](seed-db.sql))
+
 ## Start Fn
 
 - Start local Fn server - `fn start`
@@ -7,7 +14,7 @@
 
 ### Configure Docker
 
-> This is not needed if you just want to use don't want to push images to external Docker registry
+> This is not needed if you don't want to push images to external Docker registry
 
 - `docker login` (use your docker registry credentials)
 - `export FN_REGISTRY=<name of your docker repository>`
@@ -15,7 +22,9 @@
 
 ### Create an app with required database configuration
 
-`fn create app --config DB_URL=<url in format jdbc:oracle:thin:@//host:port/service_name> --config DB_USER=<db username> --config DB_PASSWORD=<password> fn-oradb-java-app` e.g. `fn create app --config DB_URL=jdbc:oracle:thin:@//129.220.150.190:1521/test_iad1vc.sub07250801030.faasvcn.oraclevcn.com --config DB_USER=workshop-134 --config DB_PASSWORD=tOps3cr3t fn-oradb-java-app`
+`fn create app --config DB_URL=<url in format jdbc:oracle:thin:@//host:port/service_name> --config DB_USER=<db username> --config DB_PASSWORD=<password> fn-oradb-java-app` 
+
+e.g. `fn create app --config DB_URL=jdbc:oracle:thin:@//129.220.150.190:1521/test_iad1vc.sub07250801030.faasvcn.oraclevcn.com --config DB_USER=workshop-134 --config DB_PASSWORD=tOps3cr3t fn-oradb-java-app`
 
 ## Deploy
 
