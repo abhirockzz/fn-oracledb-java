@@ -39,7 +39,7 @@ Deploy one function at a time. For example, to deploy the `create` function
 
 For `read` function deployment
 
-- `cd fn-oracledb-java/read`
+- `cd ../read`
 - `fn -v deploy --app fn-oradb-java-app --local --no-bump`
 
 > Repeat for other functions i.e. `delete` and `update`
