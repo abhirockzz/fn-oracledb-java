@@ -9,6 +9,8 @@ Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple
 
 ## Setup
 
+### Start Fn
+
 - Start local Fn server - `fn start`
 - Switch context - `fn use context default`
 
@@ -45,6 +47,8 @@ For `read` function deployment
 > Repeat for other functions i.e. `delete` and `update`
 
 Run `fn inspect app fn-oradb-java-app` to check your app
+
+> A custom Docker image has been used as `build_image` (see `func.yaml`) - this Docker image pre-packages the Oracle JDBC driver
 
 ## Test
 
