@@ -1,6 +1,6 @@
 # Fn with Oracle DB
 
-Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple `Employee` entity for demonstration purposes 
+Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple `Employee` entity for demonstration purposes
 
 ## Pre-requisites
 
@@ -8,6 +8,47 @@ Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple
 - You have seeded the `EMPLOYEES` table in your DB schema (check [seed-db.sql](seed-db.sql))
 
 ## Setup
+
+### Build the (base) Docker image containing Oracle JDBC driver
+
+- Clone this repo - `git clone https://github.com/abhirockzz/fn-oracledb-java`
+- download the Oracle JDBC driver from [this link](https://www.oracle.com/technetwork/database/features/jdbc/default-2280470.html) (`ojdbc7.jar` should be fine) and copy it to the `oracle_driver_docker` folder
+- Build a Docker image with the driver JAR (You will use an existing Dockerfile)
+	- `cd fn-oracledb-java/oracle_driver_docker`
+	- `docker build -t oracle_jdbc_driver_docker .` (if you choose to change the name of the image i.e. `oracle_jdbc_driver_docker`, you'll need to update those references in the `build_image` section of the `func.yaml` for all the functions)
+
+(if successful) You should see an output as below
+
+	Sending build context to Docker daemon  3.401MB
+	Step 1/3 : FROM fnproject/fn-java-fdk-build:jdk9-1.0.63
+	 ---> 973847bef180
+	Step 2/3 : COPY ojdbc7.jar .
+	 ---> dd9005799e07
+	Step 3/3 : RUN mvn deploy:deploy-file -Durl=file:///function/repo -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar
+	 ---> Running in 94bce78bf6bb
+	[INFO] Scanning for projects...
+	Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom
+	Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom (3.9 kB at 1.6 kB/s)
+	
+	............ skipping all the maven magic ..............
+	
+	Uploading to remote-repository: file:///function/repo/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.jar
+	Uploaded to remote-repository: file:///function/repo/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.jar (3.4 MB at 6.3 MB/s)
+	Uploading to remote-repository: file:///function/repo/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.pom
+	Uploaded to remote-repository: file:///function/repo/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.pom (392 B at 49 kB/s)
+	Downloading from remote-repository: file:///function/repo/com/oracle/ojdbc7/maven-metadata.xml
+	Uploading to remote-repository: file:///function/repo/com/oracle/ojdbc7/maven-metadata.xml
+	Uploaded to remote-repository: file:///function/repo/com/oracle/ojdbc7/maven-metadata.xml (302 B at 22 kB/s)
+	[INFO] ------------------------------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Total time: 27.221 s
+	[INFO] Finished at: 2018-08-30T02:08:09Z
+	[INFO] ------------------------------------------------------------------------
+	Removing intermediate container 94bce78bf6bb
+	 ---> fc46eb9cc4de
+	Successfully built fc46eb9cc4de
+	Successfully tagged oracle_jdbc_driver_docker:latest
 
 ### Start Fn
 
@@ -29,8 +70,6 @@ Fn functions executing `CRUD` operations on Oracle DB. This sample uses a simple
 e.g. `fn create app --config DB_URL=jdbc:oracle:thin:@//129.220.150.190:1521/test_iad1vc.sub07250801030.faasvcn.oraclevcn.com --config DB_USER=workshop-134 --config DB_PASSWORD=tOps3cr3t fn-oradb-java-app`
 
 ## Deploy
-
-Clone this repo - `git clone https://github.com/abhirockzz/fn-oracledb-java`
 
 Deploy one function at a time. For example, to deploy the `create` function
 

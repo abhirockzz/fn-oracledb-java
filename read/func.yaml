@@ -2,7 +2,7 @@ name: fn-oradb-app-read-func
 version: 0.0.1
 runtime: java
 cmd: io.fnproject.example.GetEmployeeFunction::handle
-build_image: abhirockzz/mvn_ora_driver
+build_image: oracle_jdbc_driver_docker
 run_image: fnproject/fn-java-fdk:jdk9-1.0.63
 format: http
 path: /read 
