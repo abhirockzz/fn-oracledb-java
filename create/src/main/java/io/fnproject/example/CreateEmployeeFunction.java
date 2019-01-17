@@ -17,16 +17,16 @@ public class CreateEmployeeFunction {
             String dbUser = System.getenv().getOrDefault("DB_USER", "scott");
             String dbPasswd = System.getenv().getOrDefault("DB_PASSWORD", "tiger");
 
-            System.err.println("Connecting to DB...");
-            System.err.println("URL " + dbUrl);
-            System.err.println("User " + dbUser);
+            System.out.println("Connecting to DB...");
+            System.out.println("URL " + dbUrl);
+            System.out.println("User " + dbUser);
 
             Properties connInfo = new Properties();
             connInfo.setProperty("user", dbUser);
             connInfo.setProperty("password", dbPasswd);
 
             conn = driver.getDeclaredConstructor().newInstance().connect(dbUrl, connInfo);
-            System.err.println("Connected to DB successfully");
+            System.out.println("Connected to DB successfully");
 
         } catch (Throwable e) {
             System.err.println("DB connectivity failed due - " + e.getMessage());
@@ -54,7 +54,7 @@ public class CreateEmployeeFunction {
 
             updated = st.executeUpdate();
 
-            System.err.println(updated + " rows inserted");
+            System.out.println(updated + " rows inserted");
             status = "Created employee " + empInfo;
 
         } catch (Exception se) {

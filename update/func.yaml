@@ -1,8 +1,5 @@
-name: fn-oradb-app-update-func
-version: 0.0.1
+schema_version: 20180708
+name: update-emp
+version: 0.0.2
 runtime: java
-cmd: io.fnproject.example.UpdateEmployeeFunction::handle
-build_image: oracle_jdbc_driver_docker
-run_image: fnproject/fn-java-fdk:jdk9-1.0.63
-format: http
-path: /update
+format: http-stream
