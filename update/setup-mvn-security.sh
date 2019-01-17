@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# The master password is used to encrypt and decrypt the user password--hard wire for this sample.
 master_password=$1
 oraclecom_userid=$2
 oraclecom_password=$3
