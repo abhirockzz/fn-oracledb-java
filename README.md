@@ -1,4 +1,4 @@
-# Employee app using Oracle Functions and Oracle DB
+# Integrating Oracle Functions and Oracle DB
 
 Oracle functions executing `CRUD` operations on Oracle DB. This sample uses a simple `Employee` entity for demonstration purposes
 
