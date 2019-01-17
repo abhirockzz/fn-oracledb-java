@@ -1,4 +1,4 @@
-# Oracle Functions working with Oracle DB
+# Employee app using Oracle Functions and Oracle DB
 
 Oracle functions executing `CRUD` operations on Oracle DB. This sample uses a simple `Employee` entity for demonstration purposes
 
@@ -21,9 +21,13 @@ For further details, please refer to https://docs.oracle.com/middleware/1213/cor
 
 e.g. `fn create app fn-oradb-java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaaghmsma7mpqhqdhbgnby25u2zo9wqlrrcskvu7jg56dryxt3hgvkz"]' --config DB_URL=jdbc:oracle:thin:@//129.777.888.999:1521/test_iad1vc.sub09250801039.myvcn.oraclevcn.com --config DB_USER=dba_user --config DB_PASSWORD=s3cr3t`
 
+## Build process
+
+A custom Dockerfile is used to build the function(s). The build process accepts the OTN username and password along with a master password as inputs. The master password itself is encrypted using `mvn --encrypt-master-password` and it is then used  to encrypt your OTN credentials. The encrypted master password is stored in `settings-security.xml` and the encrypted OTN credentials are stored in `settings.xml`. These XMLs are then referred by `mvn package`.
+
 ## Deploy
 
-> Use your OTN username and password (create in the **Configure Oracle Maven repository** step) for `ORACLE_USERID` and `ORACLE_PASSWORD` respectively
+> Use your OTN username and password (created in the **Configure Oracle Maven repository** step) for `ORACLE_USERID` and `ORACLE_PASSWORD` respectively. You can use any value for the `MASTER_PASSWORD`
 
 Deploy one function at a time. For example, to deploy the `create` function
 
