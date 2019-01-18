@@ -29,16 +29,21 @@ A custom Dockerfile is used to build the function(s). The build process accepts 
 
 > Use your OTN username and password (created in the **Configure Oracle Maven repository** step) for `ORACLE_USERID` and `ORACLE_PASSWORD` respectively. You can use any value for the `MASTER_PASSWORD`
 
-Deploy one function at a time. For example, to deploy the `create` function
+### Deploy all the functions together
+
+- `cd fn-oracledb-java`
+- `fn -v deploy --app fn-oradb-java-app --build-arg MASTER_PASSWORD=<maven_master_password> --build-arg ORACLE_USERID=<OTN_USERNAME> --build-arg ORACLE_PASSWORD=<OTN_PASSWORD> --all` 
+
+e.g. `fn -v deploy --app fn-oradb-java-app --build-arg MASTER_PASSWORD=foobar --build-arg ORACLE_USERID=abhishek.af.gupta@oracle.com --build-arg ORACLE_PASSWORD=t0ps3cr3t --all`
+
+> Notice the usage of `--all` flag at the end of the `deploy` command. It uses the app name as specified in `app.yaml`
+
+### Deploy one function at a time
+
+For example if you just want to deploy the `create` function
 
 - `cd fn-oracledb-java/create`
-- `fn -v deploy --app fn-oradb-java-app --build-arg MASTER_PASSWORD=<maven_master_password> --build-arg ORACLE_USERID=<OTN_USERNAME> --build-arg ORACLE_PASSWORD=<OTN_PASSWORD>` 
-
-e.g. `fn -v deploy --app fn-oradb-java-app --build-arg MASTER_PASSWORD=foobar --build-arg ORACLE_USERID=abhishek.af.gupta@oracle.com --build-arg ORACLE_PASSWORD=t0ps3cr3t`
-
-> Repeat for other functions i.e. `read`, `delete` and `update`
-
-Run `fn inspect app fn-oradb-java-app` to check your app
+- `fn -v deploy --app fn-oradb-java-app --build-arg MASTER_PASSWORD=<maven_master_password> --build-arg ORACLE_USERID=<OTN_USERNAME> --build-arg ORACLE_PASSWORD=<OTN_PASSWORD>`
 
 ## Test
 
